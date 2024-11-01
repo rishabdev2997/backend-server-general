@@ -3,41 +3,18 @@ const cors = require("cors");
 const app = express();
 app.use(cors());
 
-const todos = [{
-  id: 1,
-  title: "Todo 1",
-  description: "This is todo 1",
-  completed: false,
-}, {
-  id: 2,
-  title: "Todo 2",
-  description: "This is todo 2",
-  completed: false,
-}, {
-  id: 3,
-  title: "Todo 3",
-  description: "This is todo 3",
-  completed: false,
-
-}, {
-  id: 4,
-  title: "Todo 4",
-  description: "This is todo 4",
-  completed: false,
-}, {
-
-  id: 5,
-  title: "Todo 5",
-  description: "This is todo 5",
-  completed: false,
-}]
+const todos = [
+  { id: 1, title: "Todo 1", description: "This is todo 1", completed: false },
+  { id: 2, title: "Todo 2", description: "This is todo 2", completed: false },
+  { id: 3, title: "Todo 3", description: "This is todo 3", completed: false },
+  { id: 4, title: "Todo 4", description: "This is todo 4", completed: false },
+  { id: 5, title: "Todo 5", description: "This is todo 5", completed: false },
+];
 
 app.get("/todo", (req, res) => {
   const todo = todos.find(t => t.id == req.query.id);
-  res.json({
-    todo
-  })
-})
+  res.json({ todo });
+});
 
 app.get("/todos", (req, res) => {
   const randomTodos = [];
@@ -46,9 +23,7 @@ app.get("/todos", (req, res) => {
       randomTodos.push(todos[i]);
     }
   }
-  res.json({
-    todos: randomTodos,
-  })
+  res.json({ todos: randomTodos });
 });
 
 app.get("/sum", (req, res) => {
@@ -64,11 +39,7 @@ app.get("/interest", (req, res) => {
   const time = parseInt(req.query.time);
   const interest = (principal * rate * time) / 100;
   const total = principal + interest;
-  res.send({
-    total: total,
-    interest: interest,
-  })
-
+  res.json({ total, interest });
 });
 
 function getRandomNumber(max) {
@@ -80,9 +51,8 @@ app.get("/notifications", (req, res) => {
     network: getRandomNumber(10),
     jobs: getRandomNumber(10),
     messaging: getRandomNumber(10),
-    notifications: getRandomNumber(10)
-  })
+    notifications: getRandomNumber(10),
+  });
+});
 
-})
-
-
+module.exports = app; // Export the app for Vercel
